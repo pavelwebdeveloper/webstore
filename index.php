@@ -85,6 +85,8 @@ if (!isset($_SESSION['shoppingCart'])) {
                    } 
                    
                    $productDepartmentsNavList = buildProductDepartmentsNavList($productdepartments, $productDepartmentID, true);
+                   
+                   $productsList = showProducts($productGroup); 
 
                $pageTitle = $productDepartmentName . ' product group';
                $page = 'productgroup';
