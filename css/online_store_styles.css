@@ -1,0 +1,508 @@
+
+/* git add -f ../web./assignments/css/online_store_styles.css         */
+/*html,body, main {
+  height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+nav {	
+        overflow: hidden;
+        background-color: #333;
+        position: fixed; /* Set the navbar to fixed position */
+        /*top: 0; /* Position the navbar at the top of the page */
+        /*width: 100%; /* Full width */
+/*}
+
+nav div#upperblock{
+	height: 3em;
+	background-color: #000066;
+}
+
+
+
+nav div#lowerblock{
+    height: 3em;
+    background-color: #00BFFF;
+}*/
+
+
+
+/*header.headerImg{
+    background-position: center;
+  background-size: cover;
+  background-image: url("../images/sakura-garden.jpg");
+  height: 100%;
+}
+
+.header-text{
+    position: relative;
+    top: 20em;
+    color: white;
+    left: 1em;
+    font-size: 2em;
+    width: 80%;
+}*/
+
+/*.display-random-products{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30%;
+}*/
+
+
+
+
+/* git add -f ../web./assignments/css/online_store_styles.css         */
+
+
+header {
+	display: flex;
+	flex-direction: column;
+}
+
+header div#upperblock{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background-color: #000066;
+}
+
+header div#upperblock div{
+height: 50px;
+}
+
+header div#lowerblock{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+background-color: #00BFFF;
+padding-top: 5px;
+height: 40px;
+}
+
+header div#lowerblock div#logInOrSignUp a {
+	margin: 15px 10px;
+}
+
+header form {
+	margin: 10px 5px;
+}
+
+header div p {
+	color: white;
+}
+
+header div a {
+	margin: 15px 5px;
+}
+
+nav {
+	height: 50px;
+	padding-top: 10px;
+}
+
+nav a {
+	text-decoration: none;
+	color: white;
+	height: 50px;
+	font-size: 35px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+h1 {
+	text-align: center;
+	font-size: 30px;
+	margin: 5px;
+}
+
+h2 {
+	font-size: 25px;
+}
+
+p{
+	font-size: 16px;
+	margin: 0 10px;
+}
+
+form input{
+	font-size: 20px;
+}
+
+#upperblock div.searchproducts {
+	height: 100px;	
+}
+
+#upperblock div.searchproducts form input#name {
+	max-width: 100%;
+}
+
+#products #flexlayout {
+	display: flex;
+	flex-direction: column;
+}
+
+#products #flexlayout div#flexlayoutleft {
+	margin: 10px;
+}
+
+/*#products #flexlayout div#flexlayoutleft ul {
+	border: 2px solid #696969;
+}*/
+
+#products #flexlayout div#flexlayoutleft h2#departmentsMenuHeading {
+	font-size: 35px;
+	list-style-type: none;
+	background-color: #AFEEEE;
+	color: #4B0082;
+}
+
+#products #flexlayout div#flexlayoutleft ul li {
+	list-style-type: none;
+	background-color: #ffffff;
+	border: 2px solid white;
+}
+
+
+
+#products #flexlayout div#flexlayoutleft ul a {
+	text-decoration: none;
+	color: blue;
+	height: 50px;
+	font-size: 30px;
+	cursor: pointer;
+}
+
+#products #flexlayout div#flexlayoutleft ul a:hover {
+	text-decoration: underline;
+	color: #8B008B;
+	cursor: pointer;
+}
+
+#products #flexlayout div#flexlayoutright {
+	flex-grow: 3;
+	border: 1px solid black;
+}
+
+#products #flexlayout div#flexlayoutright a {
+	text-decoration: none;
+	color: black;
+	font-size: 35px;
+	cursor: pointer;
+}
+
+#products #flexlayout div#flexlayoutright img#productGroupImage {
+	max-width: 100%;
+	height: auto;
+}
+
+
+
+
+h2 {
+	text-align: center;
+}
+
+html#logInRegister main {
+  display: flex;
+  align-items: center;
+}
+
+html#logInRegister main div {
+	border: 2px solid gray;
+  margin: auto;  
+}
+
+html#logInRegister main div form {
+	margin: 20px;
+}
+
+html#logInRegister main div form button:hover {
+	cursor: pointer;
+}
+
+html#logInRegister main div form input.submitButton:hover {
+	cursor: pointer;
+}
+
+html#logInRegister main div form button a {
+	text-decoration: none;
+}
+
+
+
+
+header div a {
+	text-decoration: none;
+	margin: 10px;
+	margin-top: 20px;
+	color: white;
+	height: 50px;
+	font-size: 35px;
+	cursor: pointer;
+}
+
+header a:hover {
+	text-decoration: underline;
+}
+
+section {
+	border: 1px solid #A9A9A9;
+	padding: 5px;
+	margin: 10px;
+}
+
+section article {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+section article div {
+	margin: 10px;
+}
+
+p.price {
+	color: red;
+}
+
+section article div img {
+	max-width: 100%;
+	max-height: auto;
+}
+
+main {
+	min-height: calc(100vh - 200px);
+}
+
+main form {
+	margin: 20px 25px;
+}
+
+main form label.address input {
+    -webkit-appearance: none;
+    display: block;
+    font-size: 1.5rem;
+    border: 1px solid #4253BA;
+    padding: .75rem;
+    color: #444;
+    width: 100%;
+    max-width: 19rem;
+    background-color: rgba(0,0,0,0.05);
+}
+
+
+main form input.submitBtn {
+    border: none;
+    background-color: #4253BA;
+    color: white;
+    border-radius: 7px;
+    padding: .75rem 1.5rem;
+    margin: 0 0 2rem 3%;
+    width: 100%;
+    max-width: 26rem;
+    cursor: pointer;
+}
+
+main form input.completePurchase {
+    background-color: #008000;
+}
+
+
+main div.bottomNavigationLinks {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+main div.bottomNavigationLinks div form input.navigationButton {
+	border: none;
+    background-color: #4253BA;
+    color: white;
+    border-radius: 7px;
+    padding: .75rem 1.5rem;
+    margin: 0 3% 2rem 3%;
+    max-width: 60%;
+    cursor: pointer;
+}
+
+span.passworddescription {
+	font-size: 22px;
+}
+
+footer {
+background-color: #000066;
+height: 100px;
+vertical-align: center;
+}
+
+footer p {
+	font-size: 25px;
+	color: white;
+	text-align: center;
+	padding-top: 10px;
+}
+
+p.messagesuccess {
+	color: green;
+}
+
+p.messagefailure {
+	color: red;
+}
+
+a.adminlink {
+	text-decoration: none;
+}
+a.adminlink:hover {
+	color: purple;
+	text-decoration: underline;
+}
+
+/*===========TABLE LAYOUT==============*/
+table {
+    margin: 10px;
+    box-shadow: 8px 8px 10px grey;
+    max-width: 100%;
+}
+
+table, th, td {
+    border: 1px solid #aaa;
+    padding: 10px;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: Noto Sans, sans-serif;
+    font-size: 1.5em;
+}
+
+th {
+    background-color: #808080;
+    color: #0000ee;
+}
+
+tr:nth-child(odd) {
+    background-color: #808080;
+    color: #990033;
+}
+
+tr:nth-child(even) {
+    background-color: #e7ffed;
+    color: #990033;
+}
+
+main.productpages table a.tablelink {
+ font-size: 1.5em;
+}
+
+div#customerInformation {
+	margin: 10px;
+}
+
+
+/**********************************************************************************/
+/****************THE END OF LAYOUT FOR SMALL SCREENS******************************/
+/**********************************************************************************/
+
+/************************************************************************************/
+/****************************LAYOUT FOR MEDIUM SCREENS*******************************/
+/************************************************************************************/
+
+@media only screen and (min-width: 37.5em) {
+	
+footer {
+	height: 50px;
+}
+
+
+	
+}
+
+/**********************************************************************************/
+/****************THE END OF LAYOUT FOR MEDIUM SCREENS******************************/
+/**********************************************************************************/
+
+/************************************************************************************/
+/****************************LAYOUT FOR LARGE SCREENS*******************************/
+/************************************************************************************/
+
+@media only screen and (min-width: 64em) {
+	
+	
+header div a {
+	font-size: 25px;
+}
+
+h1 {
+	font-size: 25px;
+}
+
+h2 {
+	font-size: 20px;
+}
+
+form input{
+	font-size: 16px;
+}
+
+p{
+	font-size: 16px;
+}
+	
+	#products #flexlayout div#flexlayoutright img#productGroupImage {
+	width: 400px;
+	height: 263px;
+}
+
+section article div img {
+	max-width: 400px;
+	max-height: 267px;
+}
+
+header div#upperblock{
+	flex-direction: row;
+	height: 50px;
+}
+
+section {
+	border: 1px solid #A9A9A9;
+	padding: 5px;
+	width: 700px;
+	height:500px;
+	margin: 10px;
+}
+
+#products #flexlayout {
+	display: flex;
+	flex-direction: row;
+}
+
+section article {
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+main div.bottomNavigationLinks div form input.navigationButton {
+	max-width: 19rem;
+}
+
+main form input.submitBtn {
+    max-width: 19rem;
+}
+
+main div.bottomNavigationLinks {
+	flex-direction: row;
+}
+
+}
+
+
