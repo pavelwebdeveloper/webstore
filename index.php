@@ -86,11 +86,159 @@ if (!isset($_SESSION['shoppingCart'])) {
                    
                    $productDepartmentsNavList = buildProductDepartmentsNavList($productdepartments, $productDepartmentID, true);
                    
-                   $productsList = showProducts($productGroup); 
+                   $productsList = showProducts($productGroup, $productDepartmentID); 
 
                $pageTitle = $productDepartmentName . ' product group';
                $page = 'productgroup';
                include 'views/index.php';
+        break;
+        
+        case 'showProductDetails':
+         
+                if(isset($_GET['departmentId'])) {            
+
+                   $productDepartmentID = filter_input(INPUT_GET, 'departmentId', FILTER_VALIDATE_INT);
+                   $productGroupID = filter_input(INPUT_GET, 'groupId', FILTER_VALIDATE_INT);
+                   $productDepartmentName = filter_input(INPUT_GET, 'productgroupname', FILTER_SANITIZE_STRING);
+
+                   $productGroup = getProducts($productGroupID);                   
+                   } 
+                   
+                   $productDepartmentsNavList = buildProductDepartmentsNavList($productdepartments, $productDepartmentID, true);
+                   
+                   $productsList = showProducts($productGroup, $productDepartmentID); 
+                   
+                   
+                   
+                   
+                   
+                   
+                                            
+               
+                        
+
+                        
+                         $product = array();
+
+                     
+
+                         if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['id'])) {
+
+                                        $_SESSION['productNumber'] = $_POST['id'];
+                                        $_SESSION['image'] = $_POST['image'];
+                                        $_SESSION['product'] = $_POST['product'];
+                                        $_SESSION['price'] = $_POST['price'];
+                                        $_SESSION['description'] = $_POST['productdescription'];
+                                        $_SESSION['stock'] = $_POST['stock'];
+                                        $_SESSION['addedToCart'] = 0;
+
+                                }
+
+                         $productNumber = (int)$_SESSION['productNumber'];
+
+
+
+
+                                if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addToShoppingCart'])) {
+
+                                        
+
+                                        $numberOfProducts = count($_SESSION['shoppingCart']);
+                                        $addProduct = true;
+
+                                        if($numberOfProducts > 0) {
+
+
+                                                for($i = 0; $i < $numberOfProducts; $i++) {
+                                                         foreach ($_SESSION['shoppingCart'][$i] as $productItem){
+                                                                if ($_SESSION['shoppingCart'][$i]['numberOfProduct'] == $_SESSION['productNumber']) {
+
+                                                                        
+                                                                        $_SESSION['shoppingCart'][$i]['stock'] -= 1;
+                                                                        $_SESSION['shoppingCart'][$i]['addedToCart'] += 1;
+                                                                        $_SESSION['stock'] -= 1;
+                                                                        $_SESSION['addedToCart'] += 1;
+
+                                                                        $addProduct = false;
+                                                                }
+                                                                        break;
+                                                                }
+                                                        }
+                                                        if($addProduct) {
+                                                                $numberOfProducts = count($_SESSION['shoppingCart']);
+                                                                $j = $numberOfProducts;
+                                                                $_SESSION['shoppingCart'][$j]['numberOfProduct'] = $_SESSION['productNumber'];
+                                                                $_SESSION['shoppingCart'][$j]['image'] = $_SESSION['image'];
+                                                                $_SESSION['shoppingCart'][$j]['product'] = $_SESSION['product'];
+                                                                $_SESSION['shoppingCart'][$j]['price'] = $_SESSION['price'];
+                                                                $_SESSION['shoppingCart'][$j]['productdescription'] = $_SESSION['description'];
+                                                                $_SESSION['shoppingCart'][$j]['stock'] = $_SESSION['stock'] - 1;
+                                                                $_SESSION['shoppingCart'][$j]['addedToCart'] = $_SESSION['addedToCart'] + 1;
+                                                                
+                                                                        $_SESSION['stock'] -= 1;
+                                                                        $_SESSION['addedToCart'] += 1;
+                                                        }
+                                        } else {
+                                                $numberOfProducts = count($_SESSION['shoppingCart']);
+                                                                $j = $numberOfProducts;
+                                                                $_SESSION['shoppingCart'][$j]['numberOfProduct'] = $_SESSION['productNumber'];
+                                                                $_SESSION['shoppingCart'][$j]['image'] = $_SESSION['image'];
+                                                                $_SESSION['shoppingCart'][$j]['product'] = $_SESSION['product'];
+                                                                $_SESSION['shoppingCart'][$j]['price'] = $_SESSION['price'];
+                                                                $_SESSION['shoppingCart'][$j]['productdescription'] = $_SESSION['description'];
+                                                                $_SESSION['shoppingCart'][$j]['stock'] = $_SESSION['stock'] - 1;
+                                                                $_SESSION['shoppingCart'][$j]['addedToCart'] = $_SESSION['addedToCart'] + 1;
+                                                                
+                                                                        $_SESSION['stock'] -= 1;
+                                                                        $_SESSION['addedToCart'] += 1;
+                                        }
+                                }
+                                $productDetails = "<section><h2>".$_SESSION['product']."</h2><article><div><img src=".$_SESSION['image']."></div><div><p class='price'><span>Price: </span>".
+                                $_SESSION['price']."</p><p><span>Description: </span>".$_SESSION['description']."</p><p><span>Stock: </span>".$_SESSION['stock'].
+                                "</p><input type='hidden' name='productNumber' value='".$_SESSION['productNumber']."'><form action='product_details.php' method='post'><input type='submit' name='addToShoppingCart' value='Add to Shopping Cart'></form></div></article></section>";
+                        
+                        
+                        // Upade product stock
+                        if(isset($_POST['addToShoppingCart'])) {
+                                changeProductStock();
+                        }
+                            
+                   
+                   
+                   
+                   
+
+               $pageTitle = $productDepartmentName . ' product group';
+               $page = 'product_details';
+               include 'views/index.php';
+        break;
+        
+        case 'addProductToShoppingCart':
+         
+                if(isset($_GET['departmentId'])) {            
+
+                   $productDepartmentID = filter_input(INPUT_GET, 'departmentId', FILTER_VALIDATE_INT);
+                   $productGroupID = filter_input(INPUT_GET, 'groupId', FILTER_VALIDATE_INT);
+                   $productDepartmentName = filter_input(INPUT_GET, 'productgroupname', FILTER_SANITIZE_STRING);
+
+                   $productGroup = getProducts($productGroupID);                   
+                   } 
+                   
+                   $productDepartmentsNavList = buildProductDepartmentsNavList($productdepartments, $productDepartmentID, true);
+                   
+                   $productsList = showProducts($productGroup); 
+
+               $pageTitle = $productDepartmentName . ' product group';
+               $page = 'product_details';
+               include 'views/index.php';
+        break;
+        
+        case 'view_cart':
+         
+           $pageTitle = 'View Cart Page';
+           $page = 'view_cart';
+           include 'views/index.php';   
+            
         break;
          
         case 'showLoginPage':

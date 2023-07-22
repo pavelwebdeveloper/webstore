@@ -19,6 +19,9 @@
                        ?>>
         <input type="submit" value="Search">
     </form>
+    <div>
+<a href="./index.php?action=view_cart" title="a link to Shopping Cart page">Shopping Cart</a>
+</div>
 </div>
 <div id="lowerblock">
     

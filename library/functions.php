@@ -24,34 +24,27 @@ function buildProductDepartmentsNavList($productdepartments, $productDepartmentI
     return $productDepartmentsNavList;
 }
 
-function showProducts($products, $showDifferently = false){  
+function showProducts($products, $productDepartmentID, $showDifferently = false){  
     $productsList = "";
             foreach ($products as $product)
         {
             if($showDifferently){
                 if($product["id"]%3 == 0){
-                    $productsList .= showProduct($product);
+                    $productsList .= showProduct($product, $productDepartmentID);
                  }
             } else {
-                $productsList .= showProduct($product);
+                $productsList .= showProduct($product, $productDepartmentID);
             }
     } 
     return $productsList;
 }    
 
 	
-function showProduct($product){      
-            /*$productDisplay = '<section class="product-item"><h2>'.$product["product"].'</h2><article><div><img style="width:30%;height:50%;" src='.$product["image"].'></div><div><p class="price"><span>Price: </span>'.$product["price"].
-            '</p><p><span>Description: </span>'.$product["productdescription"].'</p><p><span>Stock: </span>'.$product["stock"].
-            '</p><form method="post" action="product_details.php"><input type="hidden" name="product" value="'.$product["product"].
-            '"><input type="hidden" name="image" value="'.$product["image"].'"><input type="hidden" name="price" value="'.$product["price"].
-            '"><input type="hidden" name="productdescription" value="'.$product["productdescription"].'"><input type="hidden" name="stock" value="'.$product["stock"].
-            '"><input type="hidden" name="id" value="'.$product["id"].
-            '"><input type="submit" name="productDetails" value="Product details"></form></div></article></section>';*/
+function showProduct($product, $productDepartmentID){
     
     $productDisplay = '<section><h2>'.$product["product"].'</h2><article><div><img src='.$product["image"].'></div><div><p class="price"><span>Price: </span>'.$product["price"].
 	'</p><p><span>Description: </span>'.$product["productdescription"].'</p><p><span>Stock: </span>'.$product["stock"].
-	'</p><form method="post" action="product_details.php"><input type="hidden" name="product" value="'.$product["product"].
+	'</p><form method="post" action="./index.php?action=showProductDetails&departmentId='.$productDepartmentID.'"><input type="hidden" name="product" value="'.$product["product"].
 	'"><input type="hidden" name="image" value="'.$product["image"].'"><input type="hidden" name="price" value="'.$product["price"].
 	'"><input type="hidden" name="productdescription" value="'.$product["productdescription"].'"><input type="hidden" name="stock" value="'.$product["stock"].
 	'"><input type="hidden" name="id" value="'.$product["id"].

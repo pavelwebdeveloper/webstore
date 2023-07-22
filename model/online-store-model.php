@@ -70,3 +70,17 @@ function getProductsGroups($productDepartmentID){
   $stmt->closeCursor();
   return $productsGroups;
 }
+
+function changeProductStock(){
+    
+        $productStock = $_SESSION['stock'];
+	$productId = $_SESSION['productNumber'];
+	
+        $db = onlineStoreConnect();
+	// Update the product stock data when adding a product to the shopping cart
+        $updateProductStock = $db->prepare('UPDATE product SET stock = :productstock WHERE id = :productid;');
+        $updateProductStock->bindValue(':productid', $productId, PDO::PARAM_INT);
+        $updateProductStock->bindValue(':productstock', $productStock, PDO::PARAM_INT);
+        $updateProductStock->execute();
+        $updateProductStockOutcome = $updateProductStock->rowCount();
+}
