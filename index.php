@@ -1,4 +1,5 @@
 <?php
+
 // Start the session
 
 session_start();
@@ -195,7 +196,7 @@ if (!isset($_SESSION['shoppingCart'])) {
                                 }
                                 $productDetails = "<section><h2>".$_SESSION['product']."</h2><article><div><img src=".$_SESSION['image']."></div><div><p class='price'><span>Price: </span>".
                                 $_SESSION['price']."</p><p><span>Description: </span>".$_SESSION['description']."</p><p><span>Stock: </span>".$_SESSION['stock'].
-                                "</p><input type='hidden' name='productNumber' value='".$_SESSION['productNumber']."'><form action='product_details.php' method='post'><input type='submit' name='addToShoppingCart' value='Add to Shopping Cart'></form></div></article></section>";
+                                "</p><input type='hidden' name='productNumber' value='".$_SESSION['productNumber']."'><form action='./index.php?action=showProductDetails&departmentId=$productDepartmentID' method='post'><input type='submit' name='addToShoppingCart' value='Add to Shopping Cart'></form></div></article></section>";
                         
                         
                         // Upade product stock
@@ -234,6 +235,122 @@ if (!isset($_SESSION['shoppingCart'])) {
         break;
         
         case 'view_cart':
+            
+            
+            
+            
+            
+            
+            
+            if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['returnToShoppingCart'])) {
+		$_SESSION['orderCountry'] = $_POST['country'];
+		$_SESSION['orderCity'] = $_POST['city'];
+		$_SESSION['orderStreet'] = $_POST['street'];
+		$_SESSION['orderHouseNumber'] = $_POST['houseNumber'];
+		$_SESSION['orderZipCode'] = $_POST['zipCode'];
+ }
+ 
+ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['number'])) {
+		
+		$_SESSION['productNumber'] = $_POST['number'];
+		$_SESSION['image'] = $_POST['image'];
+		$_SESSION['title'] = $_POST['title'];
+		$_SESSION['price'] = $_POST['price'];
+		$_SESSION['description'] = $_POST['description'];
+		$_SESSION['stock'] = $_POST['stock'];
+		$_SESSION['addedToCart'] = $_POST['addedToCart'];
+	}
+	
+	$productNumber = (int)$_SESSION['productNumber'];
+	
+	if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['removeFromShoppingCart'])) {
+				
+		
+		$numberOfProducts = count($_SESSION['shoppingCart']);
+		
+		
+		if($numberOfProducts > 0) {
+           
+			
+                        //echo $numberOfProducts;
+			for($i = 0; $i < $numberOfProducts; $i++) {
+                
+                            
+				 foreach ($_SESSION['shoppingCart'][$i] as $productItem){
+                                     
+					if ($_SESSION['shoppingCart'][$i]['numberOfProduct'] == $_POST['number']) {
+						if ($_SESSION['shoppingCart'][$i]['addedToCart'] > 1) {
+						
+						$_SESSION['shoppingCart'][$i]['stock'] += 1;
+						$_SESSION['shoppingCart'][$i]['addedToCart'] -= 1;
+						$_SESSION['stock'] += 1;
+						$_SESSION['addedToCart'] -= 1;
+                                                /*if($_SESSION['addedToCart'] == 0){
+                                                   unset($_SESSION['shoppingCart'][$i]); 
+                                                }*/
+						break;
+						} else {
+							unset($_SESSION['shoppingCart'][$i]);
+							$_SESSION['shoppingCart2'] = array_values($_SESSION['shoppingCart']);
+							$_SESSION['shoppingCart'] = $_SESSION['shoppingCart2'];
+							
+						$_SESSION['stock'] += 1;
+						$_SESSION['addedToCart'] -= 1;
+                                                
+                                                
+                                                break;
+						}
+						
+						
+					}
+						
+					}
+					//$numberOfProducts = count($_SESSION['shoppingCart']);
+				}
+			
+		} 
+		
+		
+	}
+ 
+ $productsInCart = '';
+        
+ if (empty($_SESSION['shoppingCart'])) {
+	 $productsInCart = "<h1>The Shopping Cart is empty</h1>";
+ }
+ 
+ 
+ 
+ foreach ($_SESSION['shoppingCart'] as $product) {
+	$productsInCart .= '<section><h2>'.$product["product"].'</h2><article><div><img src='.$product["image"].'></div><div><p class="price"><span>Price: </span>'.$product["price"].
+	'</p><p><span>Description: </span>'.$product["productdescription"].'</p><p><span>Stock: </span>'.$product["stock"].
+	'</p><p><span>Added to Cart: </span>'.$product["addedToCart"].
+	'</p><form method="post" action="./index.php?action=view_cart"><input type="hidden" name="title" value="'.$product["product"].
+	'"><input type="hidden" name="image" value="'.$product["image"].'"><input type="hidden" name="price" value="'.$product["price"].
+	'"><input type="hidden" name="description" value="'.$product["productdescription"].'"><input type="hidden" name="stock" value="'.$product["stock"].
+	'"><input type="hidden" name="number" value="'.$product["numberOfProduct"].
+	'"><input type="hidden" name="addedToCart" value="'.$product["addedToCart"].'"><input type="submit" name="removeFromShoppingCart" value="Remove from Shopping Cart"></form></div></article></section>';
+ };
+ 
+ 
+  // Upade product stock
+if(isset($_POST['removeFromShoppingCart'])) {
+	changeProductStock();
+}
+
+
+	
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
          
            $pageTitle = 'View Cart Page';
            $page = 'view_cart';
@@ -256,20 +373,21 @@ if (!isset($_SESSION['shoppingCart'])) {
                    $userEmail = filter_input(INPUT_POST, 'userEmail', FILTER_SANITIZE_EMAIL);
                    $userPassword = filter_input(INPUT_POST, 'userPassword', FILTER_SANITIZE_STRING);
 
+                   echo $userEmail;
+                   echo $userPassword;
+                   
                    // Check for missing data
                    if(empty($userEmail) || empty($userPassword)){
                     $_SESSION['message'] = "<p class='messagefailure'>Please, provide a valid email address and password.</p>";
-                        header("Location: ./index?action=showLoginPage");
+                        header("Location: ./index.php?action=showLoginPage");
                     exit;
                    }
+                   
+                   
 
-                   // Query the client data based on the email address
-                   $getUserData = $db->prepare('SELECT id, username, email, password, userlevel FROM storeuser WHERE email=:userEmail');
-                    $getUserData->bindValue(':userEmail', $userEmail, PDO::PARAM_STR);
-                    $getUserData->execute();
-                    $userData = $getUserData->fetch(PDO::FETCH_ASSOC);
+                   $userData = loginUser($userEmail);
 
-
+                   
 
                    // Compare the password just submitted against
                    // the hashed password for the matching client
@@ -280,11 +398,13 @@ if (!isset($_SESSION['shoppingCart'])) {
                    // and return to the login view
                    if(!$hashCheck) {
                     $_SESSION['message'] = "<p class='messagefailure'>Please, check your password and try again.</p>";
-                    header("Location: ./index?action=showLoginPage");
+                    header("Location: ./index.php?action=showLoginPage");
                     exit;
                    }
                     // A valid user exists, log them in
                    $_SESSION['loggedin'] = TRUE;
+                   echo $_SESSION['loggedin'];
+                   exit;
                    // Remove the password from the array
                    // the array_splice function removes the specified
                    // element from an array
@@ -333,7 +453,7 @@ if (!isset($_SESSION['shoppingCart'])) {
                 // Check for missing data
                if(empty($userName) || empty($userEmail) || empty($userPassword)){
                 $message = '<p class="messagefailure">Please, provide information correctly for all form fields.</p>';
-                    header("Location: ./index?action=showSignUpPage");
+                    header("Location: index.php?action=showSignUpPage");
                 exit;
                }
 
@@ -342,24 +462,17 @@ if (!isset($_SESSION['shoppingCart'])) {
                $hashedPassword = password_hash($userPassword, PASSWORD_DEFAULT);
 
 
-               $stmt = $db->prepare('INSERT INTO storeuser (username, email, password, userlevel) VALUES (:username, :useremail, :userpassword, 1)'); 
-               $stmt->bindValue(':username', $userName, PDO::PARAM_STR);
-               $stmt->bindValue(':useremail', $userEmail, PDO::PARAM_STR);
-               $stmt->bindValue(':userpassword', $hashedPassword, PDO::PARAM_STR);
-               $stmt->execute();
-
-
-            $signUpOutcome = $stmt->rowCount();
+               $signUpOutcome = addUser($userName, $userEmail, $hashedPassword);
 
 
                // Check and report the result and create the cookie when the individual registers with the site
                if($signUpOutcome === 1){
                 $_SESSION['message'] = "<p class='messagesuccess'>Thanks for registering. Please, use your email and password to login.</p>";
-                header("Location: ./index?action=showLoginPage");
+                header("Location: index.php?action=showLoginPage");
                exit;
                } else {
                 $message = "<p class='messagefailure'>Sorry, but the registration failed. Please, try again.</p>";
-                    header("Location: ./index?action=showSignUpPage");
+                    header("Location: index.php?action=showSignUpPage");
                 exit;
                }
 
@@ -374,7 +487,7 @@ if (!isset($_SESSION['shoppingCart'])) {
         default:
             $pageTitle = 'Home page';
              $page = 'home';  
-             $productsList = showProducts($products, true); 
+             $productsList = showProducts($products, 0, true); 
              include 'views/index.php';
              
         break;

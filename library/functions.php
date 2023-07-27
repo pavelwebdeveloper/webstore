@@ -24,7 +24,7 @@ function buildProductDepartmentsNavList($productdepartments, $productDepartmentI
     return $productDepartmentsNavList;
 }
 
-function showProducts($products, $productDepartmentID, $showDifferently = false){  
+function showProducts($products, $productDepartmentID = 0, $showDifferently = false){  
     $productsList = "";
             foreach ($products as $product)
         {

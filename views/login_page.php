@@ -8,7 +8,7 @@
     echo $_SESSION['message'];
    }
    ?>
- <form method="post" action="login_page.php">
+ <form method="post" action="./index.php?action=login">
 <label for="userEmail">E-mail:</label><br>
 <input type="email" id="userEmail" name="userEmail" placeholder="someone@gmail.com" pattern="[a-z0-9\._%+-]+@[a-z0-9.]+\.[a-z]{2,}$" <?php if(isset($userEmail)){echo "value='$userEmail'";} ?> required><br>
 <label for="userPassword">Password:</label><br>
@@ -17,15 +17,9 @@
 <input type="hidden" name="LogIn" value="logIn">
 <br>
 <p id="login">Not registered yet?</p>
-<button type="button"><a id="aregister" href="signup_page.php" title="a link to a sign_up page">Sign Up</a></button>
+<button type="button"><a id="aregister" href="./index.php?action=showSignUpPage" title="a link to a sign_up page">Sign Up</a></button>
 </form>
  </div>
- 
- <?php
- 
-
-
- ?>
  
  
  

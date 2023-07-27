@@ -84,3 +84,24 @@ function changeProductStock(){
         $updateProductStock->execute();
         $updateProductStockOutcome = $updateProductStock->rowCount();
 }
+
+function addUser($userName, $userEmail, $hashedPassword){
+        $db = onlineStoreConnect();
+        $stmt = $db->prepare('INSERT INTO storeuser (username, email, password, userlevel) VALUES (:username, :useremail, :userpassword, 1)'); 
+        $stmt->bindValue(':username', $userName, PDO::PARAM_STR);
+        $stmt->bindValue(':useremail', $userEmail, PDO::PARAM_STR);
+        $stmt->bindValue(':userpassword', $hashedPassword, PDO::PARAM_STR);
+        $stmt->execute();
+        $signUpOutcome = $stmt->rowCount();
+        return $signUpOutcome;
+}
+
+function loginUser($userEmail){
+        $db = onlineStoreConnect();
+        // Query the client data based on the email address
+        $getUserData = $db->prepare('SELECT id, username, email, password, userlevel FROM storeuser WHERE email=:userEmail');
+        $getUserData->bindValue(':userEmail', $userEmail, PDO::PARAM_STR);
+        $getUserData->execute();
+        $userData = $getUserData->fetch(PDO::FETCH_ASSOC);
+        return $userData;
+}
