@@ -6,12 +6,12 @@
  
  <div class="bottomNavigationLinks">
  <div>
- <form method="post" action="browse_products.php">
+ <form method="post" action="./index.php?action=browse_products">
 <input class="navigationButton" type="submit" value="Browse Products">
 </form>
 </div>
 <div>
- <form method="post" action="check_out.php">
+ <form method="post" action="./index.php?action=check_out">
 <input class="navigationButton" type="submit" value="Checkout">
 </form>
 </div>

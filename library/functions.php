@@ -51,5 +51,12 @@ function showProduct($product, $productDepartmentID){
 	'"><input type="submit" name="productDetails" value="Product details"></form></div></article></section>';
             
             return $productDisplay;
-}      
+}
+
+function showDefaultPage($products, $productDepartmentsNavList){
+             $pageTitle = 'Home page';
+             $page = 'home';  
+             $productsList = showProducts($products, 0, true); 
+             include 'views/index.php';
+}
      

@@ -1,5 +1,5 @@
 
-<?php $_SESSION['loggedin'] = false;
+<?php //$_SESSION['loggedin'] = false;
 ?>
 
 
@@ -25,7 +25,7 @@
 </div>
 <div id="lowerblock">
     
-<?php if(!($_SESSION['loggedin'])){
+<?php if(!isset($_SESSION['loggedin'])){
 	echo '<div>
 </div><div id="logInOrSignUp">
 <a href="./index.php?action=showLoginPage" title="a link to log in">Log In</a>
@@ -33,8 +33,8 @@
 } else {
 	echo '<div><p>You are logged in as ' . $_SESSION['userData']['username'] . '</p>
 </div><div id="logInOrSignUp">
-<a href="manage_account.php" title="a link to account update page">Manage account</a>
-<a href="home.php?action=Logout" title="a link to log out">Log Out</a>
+<a href="./index.php?action=manage_account" title="a link to account update page">Manage account</a>
+<a href="./index.php?action=Logout" title="a link to log out">Log Out</a>
 </div>';
 }
 ?>

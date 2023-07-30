@@ -261,7 +261,9 @@ if (!isset($_SESSION['shoppingCart'])) {
 		$_SESSION['addedToCart'] = $_POST['addedToCart'];
 	}
 	
-	$productNumber = (int)$_SESSION['productNumber'];
+        if(isset($_SESSION['productNumber'])){
+            $productNumber = (int)$_SESSION['productNumber'];
+        }
 	
 	if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['removeFromShoppingCart'])) {
 				
@@ -403,8 +405,8 @@ if(isset($_POST['removeFromShoppingCart'])) {
                    }
                     // A valid user exists, log them in
                    $_SESSION['loggedin'] = TRUE;
-                   echo $_SESSION['loggedin'];
-                   exit;
+                   echo $_SESSION['loggedin'].'?????????????????????';
+                   
                    // Remove the password from the array
                    // the array_splice function removes the specified
                    // element from an array
@@ -430,7 +432,10 @@ if(isset($_POST['removeFromShoppingCart'])) {
         case 'Logout':
          
             $_SESSION = [];
-            session_destroy();   
+            session_destroy(); 
+            
+            
+            showDefaultPage($products, $productDepartmentsNavList);
             
         break;
  
@@ -483,12 +488,112 @@ if(isset($_POST['removeFromShoppingCart'])) {
            include 'views/index.php';   
             
         break;
+        
+        case 'manage_account':
+            
+        // Start the session
+        
+        if(!($_SESSION['loggedin'])){header('Location: home.php');}
+        // Create an array for the shopping cart in the session
+        if (!isset($_SESSION['shoppingCart'])) {
+         $_SESSION['shoppingCart'] = array();
+         $_SESSION['products'] = array();
+         }
+         
+         $pageTitle = 'Manage Account';
+         $page = 'manage_account';
+         include 'views/index.php';  
+            
+        break;
+        
+        case 'update_account':
+            
+        // Start the session
+        
+        
+            
+        break;
+    
+        case 'check_out':
+            
+            if(isset($_SESSION['orderCountry'])){
+            $country = $_SESSION['orderCountry'];
+            }
+            if(isset($_SESSION['orderCity'])){
+		$city = $_SESSION['orderCity'];
+            }
+            if(isset($_SESSION['orderStreet'])){
+		$street = $_SESSION['orderStreet'];
+            }
+            if(isset($_SESSION['orderHouseNumber'])){
+		$houseNumber = $_SESSION['orderHouseNumber'];
+            }
+            if(isset($_SESSION['orderZipCode'])){
+		$zipCode = $_SESSION['orderZipCode'];
+            }
+            
+            $pageTitle = 'Check Out';
+         $page = 'check_out';
+         include 'views/index.php';  
+            
+        break;
+        
+        case 'purchase_confirmation':
+            
+            
+                    // define variables and set to empty values
+                    $country = $city = $street = $houseNumber = $zipCoce = "";
+
+
+
+                    //var_dump($major);
+
+                    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                            $country = htmlspecialchars($_POST["country"]);
+                            // Check if name contains only letters and whitespace
+                            $city = htmlspecialchars($_POST["city"]);
+                            $street = htmlspecialchars($_POST["street"]);
+                            $houseNumber = htmlspecialchars($_POST["houseNumber"]);
+                            $zipCode = htmlspecialchars($_POST["zipCode"]);
+
+
+                    }
+                    
+                    $purchasedProducts = '';
+
+                    if (empty($_SESSION['shoppingCart'])) {
+                             $purchasedProducts = "<h1>The Shopping Cart is empty</h1>";
+                     } else {
+                             $purchasedProducts = "<h1>These are the products that you have purchased</h1><br><br>";
+
+
+                    foreach ($_SESSION['shoppingCart'] as $product) {
+                            $purchasedProducts .= '<section><h2>'.$product["product"].'</h2><article><div><img src='.$product["image"].'></div><div><p class="price"><span>Price per item: </span>'.$product["price"].
+                            '</p><p><span>Description: </span>'.$product["productdescription"].'</p><p><span>Purchased: </span>'.$product["addedToCart"].'</p></div></article></section>';
+
+
+                     };
+
+                     $purchasedProducts .= "<h1>The products that you have purchased will be shipped to the following address</h1><br><br>";
+                    $purchasedProducts .= "<div id='customerInformation'><span><b>Country:</b></span> ".$country."<br>";
+                    $purchasedProducts .= "<span><b>City:</b></span> ".$city."<br>";
+                    $purchasedProducts .= "<span><b>Street:</b></span> ".$street."<br>";
+                    $purchasedProducts .= "<span><b>House number:</b></span> ".$houseNumber."<br>";
+                    $purchasedProducts .= "<span><b>Zip code:</b></span> ".$zipCode."<br></div>";
+
+                    $_SESSION['purchaseCompleted'] = true;
+                     }
+            
+            $pageTitle = 'Purchase Confirmation';
+         $page = 'purchase_confirmation';
+         include 'views/index.php';  
+            
+        break;
 
         default:
-            $pageTitle = 'Home page';
-             $page = 'home';  
-             $productsList = showProducts($products, 0, true); 
-             include 'views/index.php';
+            
+            
+            showDefaultPage($products, $productDepartmentsNavList);
              
         break;
 	 }
