@@ -1,7 +1,7 @@
 <?php
 
 // Start the session
-
+//session_destroy(); 
 session_start();
 // Create an array for the shopping cart in the session
 if (!isset($_SESSION['shoppingCart'])) {
@@ -123,19 +123,21 @@ if (!isset($_SESSION['shoppingCart'])) {
 
                      
 
-                         if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['id'])) {
-
-                                        $_SESSION['productNumber'] = $_POST['id'];
-                                        $_SESSION['image'] = $_POST['image'];
-                                        $_SESSION['product'] = $_POST['product'];
-                                        $_SESSION['price'] = $_POST['price'];
-                                        $_SESSION['description'] = $_POST['productdescription'];
-                                        $_SESSION['stock'] = $_POST['stock'];
+                         if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['productID'])) {
+                             
+                             
+                             
+                                        $_SESSION['productID'] = $_POST['productID'];
+                                        $_SESSION['productImage'] = $_POST['productImage'];
+                                        $_SESSION['productName'] = $_POST['productName'];
+                                        $_SESSION['productPrice'] = $_POST['productPrice'];
+                                        $_SESSION['productDescription'] = $_POST['productDescription'];
+                                        $_SESSION['productStock'] = $_POST['productStock'];
                                         $_SESSION['addedToCart'] = 0;
 
                                 }
 
-                         $productNumber = (int)$_SESSION['productNumber'];
+                         $productNumber = (int)$_SESSION['productID'];
 
 
 
@@ -152,12 +154,12 @@ if (!isset($_SESSION['shoppingCart'])) {
 
                                                 for($i = 0; $i < $numberOfProducts; $i++) {
                                                          foreach ($_SESSION['shoppingCart'][$i] as $productItem){
-                                                                if ($_SESSION['shoppingCart'][$i]['numberOfProduct'] == $_SESSION['productNumber']) {
+                                                                if ($_SESSION['shoppingCart'][$i]['productID'] == $_SESSION['productID']) {
 
                                                                         
-                                                                        $_SESSION['shoppingCart'][$i]['stock'] -= 1;
+                                                                        $_SESSION['shoppingCart'][$i]['productStock'] -= 1;
                                                                         $_SESSION['shoppingCart'][$i]['addedToCart'] += 1;
-                                                                        $_SESSION['stock'] -= 1;
+                                                                        $_SESSION['productStock'] -= 1;
                                                                         $_SESSION['addedToCart'] += 1;
 
                                                                         $addProduct = false;
@@ -168,39 +170,48 @@ if (!isset($_SESSION['shoppingCart'])) {
                                                         if($addProduct) {
                                                                 $numberOfProducts = count($_SESSION['shoppingCart']);
                                                                 $j = $numberOfProducts;
-                                                                $_SESSION['shoppingCart'][$j]['numberOfProduct'] = $_SESSION['productNumber'];
-                                                                $_SESSION['shoppingCart'][$j]['image'] = $_SESSION['image'];
-                                                                $_SESSION['shoppingCart'][$j]['product'] = $_SESSION['product'];
-                                                                $_SESSION['shoppingCart'][$j]['price'] = $_SESSION['price'];
-                                                                $_SESSION['shoppingCart'][$j]['productdescription'] = $_SESSION['description'];
-                                                                $_SESSION['shoppingCart'][$j]['stock'] = $_SESSION['stock'] - 1;
+                                                                $_SESSION['shoppingCart'][$j]['productID'] = $_SESSION['productID'];
+                                                                $_SESSION['shoppingCart'][$j]['productImage'] = $_SESSION['productImage'];
+                                                                $_SESSION['shoppingCart'][$j]['productName'] = $_SESSION['productName'];
+                                                                $_SESSION['shoppingCart'][$j]['productPrice'] = $_SESSION['productPrice'];
+                                                                $_SESSION['shoppingCart'][$j]['productDescription'] = $_SESSION['productDescription'];
+                                                                $_SESSION['shoppingCart'][$j]['productStock'] = $_SESSION['productStock'] - 1;
                                                                 $_SESSION['shoppingCart'][$j]['addedToCart'] = $_SESSION['addedToCart'] + 1;
                                                                 
-                                                                        $_SESSION['stock'] -= 1;
+                                                                        $_SESSION['productStock'] -= 1;
                                                                         $_SESSION['addedToCart'] += 1;
                                                         }
                                         } else {
                                                 $numberOfProducts = count($_SESSION['shoppingCart']);
                                                                 $j = $numberOfProducts;
-                                                                $_SESSION['shoppingCart'][$j]['numberOfProduct'] = $_SESSION['productNumber'];
-                                                                $_SESSION['shoppingCart'][$j]['image'] = $_SESSION['image'];
-                                                                $_SESSION['shoppingCart'][$j]['product'] = $_SESSION['product'];
-                                                                $_SESSION['shoppingCart'][$j]['price'] = $_SESSION['price'];
-                                                                $_SESSION['shoppingCart'][$j]['productdescription'] = $_SESSION['description'];
-                                                                $_SESSION['shoppingCart'][$j]['stock'] = $_SESSION['stock'] - 1;
+                                                                $_SESSION['shoppingCart'][$j]['productID'] = $_SESSION['productID'];
+                                                                $_SESSION['shoppingCart'][$j]['productImage'] = $_SESSION['productImage'];
+                                                                $_SESSION['shoppingCart'][$j]['productName'] = $_SESSION['productName'];
+                                                                $_SESSION['shoppingCart'][$j]['productPrice'] = $_SESSION['productPrice'];
+                                                                $_SESSION['shoppingCart'][$j]['productDescription'] = $_SESSION['productDescription'];
+                                                                $_SESSION['shoppingCart'][$j]['productStock'] = $_SESSION['productStock'] - 1;
                                                                 $_SESSION['shoppingCart'][$j]['addedToCart'] = $_SESSION['addedToCart'] + 1;
                                                                 
-                                                                        $_SESSION['stock'] -= 1;
+                                                                        $_SESSION['productStock'] -= 1;
                                                                         $_SESSION['addedToCart'] += 1;
                                         }
                                 }
-                                $productDetails = "<section><h2>".$_SESSION['product']."</h2><article><div><img src=".$_SESSION['image']."></div><div><p class='price'><span>Price: </span>".
-                                $_SESSION['price']."</p><p><span>Description: </span>".$_SESSION['description']."</p><p><span>Stock: </span>".$_SESSION['stock'].
-                                "</p><input type='hidden' name='productNumber' value='".$_SESSION['productNumber']."'><form action='./index.php?action=showProductDetails&departmentId=$productDepartmentID' method='post'><input type='submit' name='addToShoppingCart' value='Add to Shopping Cart'></form></div></article></section>";
+                                
+                                
+                                if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['returnedFromShoppingCart'])){
+                                 
+                                    $productFromCart = getProduct($_GET['productID']);
+                                    
+                                    $productDetails = showProductDetails($productFromCart, $productDepartmentID);
+                                } else {
+                                    $productDetails = showProductDetails($_SESSION, $productDepartmentID);
+                                }
+                                
                         
                         
                         // Upade product stock
                         if(isset($_POST['addToShoppingCart'])) {
+                            
                                 changeProductStock();
                         }
                             
@@ -237,7 +248,14 @@ if (!isset($_SESSION['shoppingCart'])) {
         case 'view_cart':
             
             
-            
+             if(isset($_GET['departmentId'])) {            
+
+                   $productDepartmentID = filter_input(INPUT_GET, 'departmentId', FILTER_VALIDATE_INT);
+                   $productGroupID = filter_input(INPUT_GET, 'groupId', FILTER_VALIDATE_INT);
+                   $productDepartmentName = filter_input(INPUT_GET, 'productgroupname', FILTER_SANITIZE_STRING);
+
+                   $productGroup = getProducts($productGroupID);                   
+                   } 
             
             
             
@@ -250,19 +268,19 @@ if (!isset($_SESSION['shoppingCart'])) {
 		$_SESSION['orderZipCode'] = $_POST['zipCode'];
  }
  
- if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['number'])) {
+ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['productID'])) {
 		
-		$_SESSION['productNumber'] = $_POST['number'];
-		$_SESSION['image'] = $_POST['image'];
-		$_SESSION['title'] = $_POST['title'];
-		$_SESSION['price'] = $_POST['price'];
-		$_SESSION['description'] = $_POST['description'];
-		$_SESSION['stock'] = $_POST['stock'];
+		$_SESSION['productID'] = $_POST['productID'];
+		$_SESSION['productImage'] = $_POST['productImage'];
+		$_SESSION['productName'] = $_POST['productName'];
+		$_SESSION['productPrice'] = $_POST['productPrice'];
+		$_SESSION['productDescription'] = $_POST['productDescription'];
+		$_SESSION['productStock'] = $_POST['productStock'];
 		$_SESSION['addedToCart'] = $_POST['addedToCart'];
 	}
 	
-        if(isset($_SESSION['productNumber'])){
-            $productNumber = (int)$_SESSION['productNumber'];
+        if(isset($_SESSION['productID'])){
+            $productNumber = (int)$_SESSION['productID'];
         }
 	
 	if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['removeFromShoppingCart'])) {
@@ -280,12 +298,12 @@ if (!isset($_SESSION['shoppingCart'])) {
                             
 				 foreach ($_SESSION['shoppingCart'][$i] as $productItem){
                                      
-					if ($_SESSION['shoppingCart'][$i]['numberOfProduct'] == $_POST['number']) {
+					if ($_SESSION['shoppingCart'][$i]['productID'] == $_POST['productID']) {
 						if ($_SESSION['shoppingCart'][$i]['addedToCart'] > 1) {
 						
-						$_SESSION['shoppingCart'][$i]['stock'] += 1;
+						$_SESSION['shoppingCart'][$i]['productStock'] += 1;
 						$_SESSION['shoppingCart'][$i]['addedToCart'] -= 1;
-						$_SESSION['stock'] += 1;
+						$_SESSION['productStock'] += 1;
 						$_SESSION['addedToCart'] -= 1;
                                                 /*if($_SESSION['addedToCart'] == 0){
                                                    unset($_SESSION['shoppingCart'][$i]); 
@@ -296,7 +314,7 @@ if (!isset($_SESSION['shoppingCart'])) {
 							$_SESSION['shoppingCart2'] = array_values($_SESSION['shoppingCart']);
 							$_SESSION['shoppingCart'] = $_SESSION['shoppingCart2'];
 							
-						$_SESSION['stock'] += 1;
+						$_SESSION['productStock'] += 1;
 						$_SESSION['addedToCart'] -= 1;
                                                 
                                                 
@@ -313,32 +331,94 @@ if (!isset($_SESSION['shoppingCart'])) {
 		} 
 		
 		
-	}
+        } elseif($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['removeFromShoppingCartCompletely'])){
+            $numberOfProducts = count($_SESSION['shoppingCart']);
+		
+		
+		if($numberOfProducts > 0) {
+           
+			
+                        //echo $numberOfProducts;
+			for($i = 0; $i < $numberOfProducts; $i++) {
+                
+                            
+				 foreach ($_SESSION['shoppingCart'][$i] as $productItem){
+                                     
+                                     
+                                     
+					if ($_SESSION['shoppingCart'][$i]['productID'] == $_POST['productID']) {
+                                            
+                                            /*echo $_SESSION['shoppingCart'][$i]['productID']."<br>";
+                                     echo $_POST['productID']."<br>";
+                                     echo $_SESSION['productStock']."<br>";
+                                     echo $_SESSION['addedToCart']."<br>";
+                                     
+                                    
+                                            echo "BEFORE";
+                                            echo $i;
+                                            echo var_dump($_SESSION['shoppingCart']);*/
+                                            array_splice($_SESSION['shoppingCart'],$i,1);
+                                            /*if(count($_SESSION['shoppingCart']) == 1){
+                                                break;
+                                            }*/
+                                            /*echo "AFTER";
+                                            echo var_dump($_SESSION['shoppingCart']);*/
+                                            /*$_SESSION['shoppingCart'][$i]['productStock'] += $_SESSION['shoppingCart'][$i]['addedToCart'];
+                                            $_SESSION['shoppingCart'][$i]['addedToCart'] = 0;
+                                            $_SESSION['productStock'] += 1;
+                                            $_SESSION['addedToCart'] -= 1;
+                                            
+                                            
+                                            
+                                            $_SESSION['productStock'] += $_SESSION['addedToCart'];
+                                            $_SESSION['addedToCart'] = 0;*/
+                                            
+                                            
+                                            
+							
+						$_SESSION['productStock'] += $_SESSION['addedToCart'];
+						$_SESSION['addedToCart'] = 0;
+                                            
+                                            
+                                        }
+                                        
+                                        break;
+                                 }
+                                 
+                                 if(count($_SESSION['shoppingCart']) == 1){
+                                                break;
+                                            }
+                        }
+                }
+        }
  
- $productsInCart = '';
+        $productsInCart = '';
         
- if (empty($_SESSION['shoppingCart'])) {
-	 $productsInCart = "<h1>The Shopping Cart is empty</h1>";
- }
- 
- 
- 
- foreach ($_SESSION['shoppingCart'] as $product) {
-	$productsInCart .= '<section><h2>'.$product["product"].'</h2><article><div><img src='.$product["image"].'></div><div><p class="price"><span>Price: </span>'.$product["price"].
-	'</p><p><span>Description: </span>'.$product["productdescription"].'</p><p><span>Stock: </span>'.$product["stock"].
-	'</p><p><span>Added to Cart: </span>'.$product["addedToCart"].
-	'</p><form method="post" action="./index.php?action=view_cart"><input type="hidden" name="title" value="'.$product["product"].
-	'"><input type="hidden" name="image" value="'.$product["image"].'"><input type="hidden" name="price" value="'.$product["price"].
-	'"><input type="hidden" name="description" value="'.$product["productdescription"].'"><input type="hidden" name="stock" value="'.$product["stock"].
-	'"><input type="hidden" name="number" value="'.$product["numberOfProduct"].
-	'"><input type="hidden" name="addedToCart" value="'.$product["addedToCart"].'"><input type="submit" name="removeFromShoppingCart" value="Remove from Shopping Cart"></form></div></article></section>';
- };
- 
- 
-  // Upade product stock
-if(isset($_POST['removeFromShoppingCart'])) {
-	changeProductStock();
-}
+        
+
+        if (empty($_SESSION['shoppingCart'])) {
+            cart:
+                $productsInCart = "<h1>The Shopping Cart is empty</h1>";
+        }
+
+//echo var_dump($_SESSION['shoppingCart']);
+        
+
+        foreach ($_SESSION['shoppingCart'] as $product) {
+            
+            //echo var_dump($product);
+            if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['returnToShoppingCart'])) {
+               $productsInCart .= showProductsInCart($product);
+               } else {
+                   $productsInCart .= showProductsInCart($product, $productDepartmentID, $productGroupID, $productDepartmentName);
+               }
+        };
+
+
+         // Upade product stock
+       if(isset($_POST['removeFromShoppingCart']) || isset($_POST['removeFromShoppingCartCompletely'])) {
+               changeProductStock();
+       }
 
 
 	
@@ -351,8 +431,10 @@ if(isset($_POST['removeFromShoppingCart'])) {
             
             
             
-            
-            
+           
+               
+             
+           
          
            $pageTitle = 'View Cart Page';
            $page = 'view_cart';
@@ -516,6 +598,11 @@ if(isset($_POST['removeFromShoppingCart'])) {
     
         case 'check_out':
             
+            if(empty($_SESSION['shoppingCart'])){
+                goto cart;
+            }
+            
+            
             if(isset($_SESSION['orderCountry'])){
             $country = $_SESSION['orderCountry'];
             }
@@ -568,8 +655,8 @@ if(isset($_POST['removeFromShoppingCart'])) {
 
 
                     foreach ($_SESSION['shoppingCart'] as $product) {
-                            $purchasedProducts .= '<section><h2>'.$product["product"].'</h2><article><div><img src='.$product["image"].'></div><div><p class="price"><span>Price per item: </span>'.$product["price"].
-                            '</p><p><span>Description: </span>'.$product["productdescription"].'</p><p><span>Purchased: </span>'.$product["addedToCart"].'</p></div></article></section>';
+                            $purchasedProducts .= '<section><h2>'.$product["productName"].'</h2><article><div><img src='.$product["productImage"].'></div><div><p class="price"><span>Price per item: </span>'.$product["productPrice"].
+                            '</p><p><span>Description: </span>'.$product["productDescription"].'</p><p><span>Purchased: </span>'.$product["addedToCart"].'</p></div></article></section>';
 
 
                      };

@@ -16,8 +16,7 @@
 <input class="submitButton" type="submit" value="Log in">
 <input type="hidden" name="LogIn" value="logIn">
 <br>
-<p id="login">Not registered yet?</p>
-<button type="button"><a id="aregister" href="./index.php?action=showSignUpPage" title="a link to a sign_up page">Sign Up</a></button>
+
 </form>
  </div>
  

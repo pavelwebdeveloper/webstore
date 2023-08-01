@@ -29,7 +29,7 @@ if (!isset($_SESSION['shoppingCart'])) {
  </main>
      
   
-  
+  <script src="./js/javascript.js"></script>
  </body>
 </html>
 

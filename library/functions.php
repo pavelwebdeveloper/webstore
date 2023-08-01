@@ -29,7 +29,7 @@ function showProducts($products, $productDepartmentID = 0, $showDifferently = fa
             foreach ($products as $product)
         {
             if($showDifferently){
-                if($product["id"]%3 == 0){
+                if($product["productID"]%3 == 0){
                     $productsList .= showProduct($product, $productDepartmentID);
                  }
             } else {
@@ -37,20 +37,51 @@ function showProducts($products, $productDepartmentID = 0, $showDifferently = fa
             }
     } 
     return $productsList;
-}    
+}   
+
+function showProductsInCart($product, $productDepartmentID = '', $productGroupID = '', $productDepartmentName = ''){
+    $shoppingCartContents = '<section><h2>'.$product["productName"].'</h2><article><div><img src='.$product["productImage"].'></div><div><p class="price"><span>Price: </span>'.$product["productPrice"].
+	'</p><p><span>Description: </span>'.$product["productDescription"].'</p><p><span>Stock: </span>'.$product["productStock"].
+	'</p><p><span>Added to Cart: </span>'.$product["addedToCart"].
+	'</p><form method="post" action="./index.php?action=view_cart&departmentId='.$productDepartmentID.'&groupId='.$productGroupID.'&productgroupname='.$productDepartmentName.'"><input type="hidden" name="productName" value="'.$product["productName"].
+	'"><input type="hidden" name="productImage" value="'.$product["productImage"].'"><input type="hidden" name="productPrice" value="'.$product["productPrice"].
+	'"><input type="hidden" name="productDescription" value="'.$product["productDescription"].'"><input type="hidden" name="productStock" value="'.$product["productStock"].
+	'"><input type="hidden" name="productID" value="'.$product["productID"].
+	'"><input type="hidden" name="addedToCart" value="'.$product["addedToCart"].
+        '"><input type="submit" name="removeFromShoppingCart" value="Remove from Shopping Cart 1 Item">'.
+        '<input type="submit" name="removeFromShoppingCartCompletely" value="Remove from Shopping Cart Completely">'.
+        '</form><form method="post" action="./index.php?action=showProductDetails&productID='.$product["productID"].'&departmentId='.$productDepartmentID.'&groupId='.$productGroupID.'&productgroupname='.$productDepartmentName.'">'.
+        '<input type="hidden" name="returnedFromShoppingCart" value="returnedFromShoppingCart">'.
+        '<input type="submit" name="returnToProductDetails" value="Return To Product Details">'.
+        '</form></div></article></section>';
+
+    return $shoppingCartContents;
+}
 
 	
 function showProduct($product, $productDepartmentID){
     
-    $productDisplay = '<section><h2>'.$product["product"].'</h2><article><div><img src='.$product["image"].'></div><div><p class="price"><span>Price: </span>'.$product["price"].
-	'</p><p><span>Description: </span>'.$product["productdescription"].'</p><p><span>Stock: </span>'.$product["stock"].
-	'</p><form method="post" action="./index.php?action=showProductDetails&departmentId='.$productDepartmentID.'"><input type="hidden" name="product" value="'.$product["product"].
-	'"><input type="hidden" name="image" value="'.$product["image"].'"><input type="hidden" name="price" value="'.$product["price"].
-	'"><input type="hidden" name="productdescription" value="'.$product["productdescription"].'"><input type="hidden" name="stock" value="'.$product["stock"].
-	'"><input type="hidden" name="id" value="'.$product["id"].
+    $productDisplay = '<section><h2>'.$product["productName"].'</h2><article><div><img src='.$product["productImage"].'></div><div><p class="price"><span>Price: </span>'.$product["productPrice"].
+	'</p><p><span>Description: </span>'.$product["productDescription"].'</p><p><span>Stock: </span>'.$product["productStock"].
+	'</p><form method="post" action="./index.php?action=showProductDetails&departmentId='.$productDepartmentID.'"><input type="hidden" name="productName" value="'.$product["productName"].
+	'"><input type="hidden" name="productImage" value="'.$product["productImage"].'"><input type="hidden" name="productPrice" value="'.$product["productPrice"].
+	'"><input type="hidden" name="productDescription" value="'.$product["productDescription"].'"><input type="hidden" name="productStock" value="'.$product["productStock"].
+	'"><input type="hidden" name="productID" value="'.$product["productID"].
 	'"><input type="submit" name="productDetails" value="Product details"></form></div></article></section>';
             
             return $productDisplay;
+}
+
+
+function showProductDetails($product, $productDepartmentID){
+    $productDetails = "<section><h2>".$product['productName']."</h2><article><div><img src=".$product['productImage']."></div><div><p class='price'><span>Price: </span>".
+                                $product['productPrice']."</p><p><span>Description: </span>".$product['productDescription']."</p><p><span>Stock: </span>".$product['productStock'].
+                                "</p><form action='./index.php?action=showProductDetails&departmentId=$productDepartmentID' "
+                                . "method='post'><input type='hidden' name='productName' value='".$product['productName'].
+	"'><input type='hidden' name='productImage' value='".$product['productImage']."'><input type='hidden' name='productPrice' value='".$product['productPrice'].
+	"'><input type='hidden' name='productDescription' value='".$product['productDescription']."'><input type='hidden' name='productStock' value='".$product['productStock'].
+	"'><input type='hidden' name='productID' value='".$product['productID']."'><input type='submit' name='addToShoppingCart' value='Add to Shopping Cart'></form></div></article></section>";
+    return $productDetails;
 }
 
 function showDefaultPage($products, $productDepartmentsNavList){
