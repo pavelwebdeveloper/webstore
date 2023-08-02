@@ -20,8 +20,10 @@
         <input type="submit" value="Search">
     </form>
     <div>
-<a href="./index.php?action=view_cart&departmentId=<?php if(isset($productDepartmentID)){echo $productDepartmentID;} ?>&groupId=<?php if(isset($productGroupID)){echo $productGroupID;} ?>&productgroupname=<?php if(isset($productDepartmentName)){echo $productDepartmentName;} ?>" title="a link to Shopping Cart page">Shopping Cart</a>
-</div>
+        <nav>
+            <a href="./index.php?action=view_cart&departmentId=<?php if(isset($productDepartmentID)){echo $productDepartmentID;} ?>&groupId=<?php if(isset($productGroupID)){echo $productGroupID;} ?>&productgroupname=<?php if(isset($productDepartmentName)){echo $productDepartmentName;} ?>" title="a link to Shopping Cart page">Shopping Cart</a>
+        </nav>
+    </div>
 </div>
 <div id="lowerblock">
     

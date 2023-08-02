@@ -348,35 +348,10 @@ if (!isset($_SESSION['shoppingCart'])) {
                                      
 					if ($_SESSION['shoppingCart'][$i]['productID'] == $_POST['productID']) {
                                             
-                                            /*echo $_SESSION['shoppingCart'][$i]['productID']."<br>";
-                                     echo $_POST['productID']."<br>";
-                                     echo $_SESSION['productStock']."<br>";
-                                     echo $_SESSION['addedToCart']."<br>";
-                                     
-                                    
-                                            echo "BEFORE";
-                                            echo $i;
-                                            echo var_dump($_SESSION['shoppingCart']);*/
+                                           
                                             array_splice($_SESSION['shoppingCart'],$i,1);
-                                            /*if(count($_SESSION['shoppingCart']) == 1){
-                                                break;
-                                            }*/
-                                            /*echo "AFTER";
-                                            echo var_dump($_SESSION['shoppingCart']);*/
-                                            /*$_SESSION['shoppingCart'][$i]['productStock'] += $_SESSION['shoppingCart'][$i]['addedToCart'];
-                                            $_SESSION['shoppingCart'][$i]['addedToCart'] = 0;
-                                            $_SESSION['productStock'] += 1;
-                                            $_SESSION['addedToCart'] -= 1;
-                                            
-                                            
-                                            
-                                            $_SESSION['productStock'] += $_SESSION['addedToCart'];
-                                            $_SESSION['addedToCart'] = 0;*/
-                                            
-                                            
-                                            
-							
-						$_SESSION['productStock'] += $_SESSION['addedToCart'];
+                                        
+                                            	$_SESSION['productStock'] += $_SESSION['addedToCart'];
 						$_SESSION['addedToCart'] = 0;
                                             
                                             
@@ -671,6 +646,8 @@ if (!isset($_SESSION['shoppingCart'])) {
                     $_SESSION['purchaseCompleted'] = true;
                      }
             
+                     unset($_SESSION['shoppingCart']);
+                     
             $pageTitle = 'Purchase Confirmation';
          $page = 'purchase_confirmation';
          include 'views/index.php';  
