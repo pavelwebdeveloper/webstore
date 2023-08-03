@@ -6,14 +6,12 @@
  ?>
   </div>
    <div id="flexlayoutright">
-   <?php
    
-
-
-echo $productsList;
- 
-   
-?>
+    <div class="display-productgroups-and-products">   
+       <?php
+            echo $productsList;  
+        ?>
+    </div>
   </div>
   </div>
  

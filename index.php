@@ -248,6 +248,8 @@ if (!isset($_SESSION['shoppingCart'])) {
         case 'view_cart':
             
             
+            
+            
              if(isset($_GET['departmentId'])) {            
 
                    $productDepartmentID = filter_input(INPUT_GET, 'departmentId', FILTER_VALIDATE_INT);
@@ -382,7 +384,8 @@ if (!isset($_SESSION['shoppingCart'])) {
         foreach ($_SESSION['shoppingCart'] as $product) {
             
             //echo var_dump($product);
-            if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['returnToShoppingCart'])) {
+            //if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['returnToShoppingCart'])) {
+            if($_SERVER['REQUEST_METHOD'] == "GET" and isset($_GET['returnToShoppingCart'])) {
                $productsInCart .= showProductsInCart($product);
                } else {
                    $productsInCart .= showProductsInCart($product, $productDepartmentID, $productGroupID, $productDepartmentName);

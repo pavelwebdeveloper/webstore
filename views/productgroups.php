@@ -7,6 +7,7 @@
  ?>
   </div>
    <div id="flexlayoutright">
+       <div class="display-productgroups-and-products">
    <?php
    
 
@@ -18,6 +19,7 @@ if (isset($productGroups)) {
 }
    
 ?>
+       </div>
     </div>
   </div>
  

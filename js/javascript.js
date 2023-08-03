@@ -7,7 +7,7 @@
 document.getElementById("js-returnToShoppingCartButton").addEventListener("click", returnToShoppingCart);
 
 function returnToShoppingCart(){
-    window.location.assign("./index.php?action=view_cart");
+    window.location.assign("./index.php?action=view_cart&returnToShoppingCart=true");
     
 }
 

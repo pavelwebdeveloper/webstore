@@ -1,0 +1,61 @@
+main div.bottomNavigationLinks div form input.navigationButton {
+  border: none;
+  color: white;
+  border-radius: 7px;
+  padding: 0.75rem 1.5rem;
+  margin: 0 3% 2rem 3%;
+  max-width: 85%;
+  cursor: pointer;
+  width: 16em;
+  background-color: #4253BA;
+}
+
+.button {
+  border: none;
+  color: white;
+  border-radius: 7px;
+  padding: 0.75rem 1.5rem;
+  margin: 0 3% 2rem 3%;
+  max-width: 85%;
+  cursor: pointer;
+  width: 10em;
+  background-color: #4253BA;
+}
+
+.add-to-shopping-cart-button {
+  border: none;
+  color: white;
+  border-radius: 7px;
+  padding: 0.75rem 1.5rem;
+  margin: 0 3% 2rem 3%;
+  max-width: 85%;
+  cursor: pointer;
+  width: 13em;
+  background-color: #4253BA;
+}
+
+.remove-product-shopping-cart-button {
+  border: none;
+  color: white;
+  border-radius: 7px;
+  padding: 0.75rem 1.5rem;
+  margin: 0 3% 2rem 3%;
+  max-width: 85%;
+  cursor: pointer;
+  width: 21em;
+  background-color: red;
+}
+
+.product-shopping-cart-button {
+  border: none;
+  color: white;
+  border-radius: 7px;
+  padding: 0.75rem 1.5rem;
+  margin: 0 3% 2rem 3%;
+  max-width: 85%;
+  cursor: pointer;
+  width: 15em;
+  background-color: #4253BA;
+}
+
+/*# sourceMappingURL=main.css.map */

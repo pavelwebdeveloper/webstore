@@ -11,9 +11,9 @@
 
 
 <h1>This is Product Details Page</h1>
- 
+
 <?php echo $productDetails; ?>
- 
+
  
    
 

@@ -1,0 +1,32 @@
+@import "buttons";
+@import "variables";
+
+main div.bottomNavigationLinks div form input.navigationButton {
+    @include button;
+    width: 16em;
+    background-color: $buttonColor;
+}
+
+.button{
+    @include button;
+    width: 10em;
+    background-color: $buttonColor;
+}
+
+.add-to-shopping-cart-button{
+    @include button;
+    width: 13em;
+    background-color: $buttonColor;
+}
+
+.remove-product-shopping-cart-button{
+    @include button;
+    width: 21em;
+    background-color: $removeProductButtonColor;
+}
+
+.product-shopping-cart-button{
+    @include button;
+    width: 15em;
+    background-color: $buttonColor;
+}

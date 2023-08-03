@@ -10,7 +10,7 @@
 <label class="address" for="zipCode">Zipcode: <input type="text" name="zipCode" <?php if(isset($zipCode)){ echo "value='$zipCode'"; } else {echo "value=''"; } ?> required></label><br>
 
 <input class="submitBtn completePurchase" type="submit" name="completePurchase" value="Complete the purchase"><br>
-<input id="js-returnToShoppingCartButton" class="submitBtn" type="submit" name="returnToShoppingCart" value="Return to Shopping Cart" formaction="./index.php?action=view_cart">
+<input id="js-returnToShoppingCartButton" class="submitBtn" type="submit" name="returnToShoppingCart" value="Return to Shopping Cart" formaction="./index.php?action=view_cart&returntoshoppingcart=true">
 
 </form>
 

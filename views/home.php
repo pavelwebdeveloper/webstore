@@ -12,7 +12,7 @@
 
     <h2>These are some of the products that we sell</h2>
     
-    <div class="display-random-products">
+    <div class="display-productgroups-and-products">
         <?php echo $productsList; ?>
     </div>
    

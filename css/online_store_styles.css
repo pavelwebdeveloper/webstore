@@ -47,12 +47,29 @@ nav div#lowerblock{
     width: 80%;
 }*/
 
-/*.display-random-products{
+article{
+    margin: 1em;
+}
+
+.display-productgroups-and-products{
     display: flex;
     flex-wrap: wrap;
 }
 
-.product-item{
+
+
+.productDetailsSection{
+    width: 70em;
+}
+
+.productDetailsHeading{
+    font-size: 2em;
+}
+
+.productDetailsDescription p{
+    font-size: 1.5em;
+}
+/*.product-item{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -154,7 +171,14 @@ form input{
 
 #products #flexlayout div#flexlayoutleft {
 	margin: 10px;
+        width: 550px;
 }
+
+/*@media only screen and (min-width: 1000px) {
+        #products #flexlayout div#flexlayoutleft {
+            width: 30%;
+    }
+}*/
 
 /*#products #flexlayout div#flexlayoutleft ul {
 	border: 2px solid #696969;
@@ -192,6 +216,7 @@ form input{
 #products #flexlayout div#flexlayoutright {
 	flex-grow: 3;
 	border: 1px solid black;
+        justify-content: space-between;
 }
 
 #products #flexlayout div#flexlayoutright a {
@@ -270,6 +295,7 @@ section article {
 
 section article div {
 	margin: 10px;
+        height: 50%;
 }
 
 p.price {
@@ -287,6 +313,7 @@ main {
 
 main form {
 	margin: 20px 25px;
+        height: 20%;
 }
 
 main form label.address input {
@@ -326,8 +353,8 @@ main div.bottomNavigationLinks {
         margin-bottom: 0;
 }
 
-main div.bottomNavigationLinks div form input.navigationButton {
-	border: none;
+/*main div.bottomNavigationLinks div form input.navigationButton {
+    border: none;
     background-color: #4253BA;
     color: white;
     border-radius: 7px;
@@ -336,6 +363,22 @@ main div.bottomNavigationLinks div form input.navigationButton {
     max-width: 60%;
     cursor: pointer;
     width: 10em;
+}
+
+.button{
+    border: none;
+    background-color: #4253BA;
+    color: white;
+    border-radius: 7px;
+    padding: .75rem 1.5rem;
+    margin: 0 3% 2rem 3%;
+    max-width: 60%;
+    cursor: pointer;
+    width: 10em;
+}*/
+
+.productDescription{
+    height: 9em;
 }
 
 span.passworddescription {
@@ -482,8 +525,7 @@ header div#upperblock{
 section {
 	border: 1px solid #A9A9A9;
 	padding: 5px;
-	width: 700px;
-	height:500px;
+	width: 30em;
 	margin: 10px;
 }
 
@@ -492,10 +534,10 @@ section {
 	flex-direction: row;
 }
 
-section article {
+/*section article {
 	flex-direction: row;
 	justify-content: space-between;
-}
+}*/
 
 main div.bottomNavigationLinks div form input.navigationButton {
 	max-width: 19rem;
