@@ -58,17 +58,7 @@ article{
 
 
 
-.productDetailsSection{
-    width: 70em;
-}
 
-.productDetailsHeading{
-    font-size: 2em;
-}
-
-.productDetailsDescription p{
-    font-size: 1.5em;
-}
 /*.product-item{
     display: flex;
     flex-direction: column;
@@ -85,6 +75,15 @@ article{
 header {
 	display: flex;
 	flex-direction: column;
+        position: fixed;
+        width: 100%;
+        margin-top: -7em;
+}
+
+@media only screen and (max-width: 64em) {
+        header {
+            margin-top: -11em;
+    }
 }
 
 header div#upperblock{
@@ -309,11 +308,17 @@ section article div img {
 
 main {
 	min-height: calc(100vh - 200px);
+        margin: 7em 0 3em 0;
 }
 
 main form {
 	margin: 20px 25px;
         height: 20%;
+        font-size: 2em;
+}
+
+.formInput{
+    font-size: 0.75em;
 }
 
 main form label.address input {
@@ -335,15 +340,13 @@ main form input.submitBtn {
     color: white;
     border-radius: 7px;
     padding: .75rem 1.5rem;
-    margin: 0 0 2rem 3%;
+    margin: 0 0 2rem 0;
     width: 100%;
-    max-width: 26rem;
+    max-width: 19rem;
     cursor: pointer;
 }
 
-main form input.completePurchase {
-    background-color: #008000;
-}
+
 
 
 main div.bottomNavigationLinks {
@@ -375,11 +378,11 @@ main div.bottomNavigationLinks {
     max-width: 60%;
     cursor: pointer;
     width: 10em;
-}*/
+}
 
 .productDescription{
     height: 9em;
-}
+}*/
 
 span.passworddescription {
 	font-size: 22px;
@@ -539,13 +542,36 @@ section {
 	justify-content: space-between;
 }*/
 
+.productDetailsSection{
+    width: 70em;
+}
+
+.productInCartSection{
+    width: 60em;
+}
+
+.productDetailsArticle{
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+.productDetailsHeading{
+    font-size: 2em;
+}
+
+.productDetailsDescription p{
+    font-size: 1.5em;
+}
+
 main div.bottomNavigationLinks div form input.navigationButton {
 	max-width: 19rem;
 }
 
-main form input.submitBtn {
+/*main form input.submitBtn {
     max-width: 19rem;
-}
+}*/
 
 main div.bottomNavigationLinks {
 	flex-direction: row;

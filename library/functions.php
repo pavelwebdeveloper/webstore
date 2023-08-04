@@ -40,7 +40,7 @@ function showProducts($products, $productDepartmentID = 0, $showDifferently = fa
 }   
 
 function showProductsInCart($product, $productDepartmentID = '', $productGroupID = '', $productDepartmentName = ''){
-    $shoppingCartContents = '<section><h2>'.$product["productName"].'</h2><article><div><img src='.$product["productImage"].'></div><div><p class="price"><span>Price: </span>'.$product["productPrice"].
+    $shoppingCartContents = '<section class="productInCartSection"><h2>'.$product["productName"].'</h2><article class="productDetailsArticle"><div><img src='.$product["productImage"].'></div><div><p class="price"><span>Price: </span>'.$product["productPrice"].
 	'</p><p><span>Description: </span>'.$product["productDescription"].'</p><p><span>Stock: </span>'.$product["productStock"].
 	'</p><p><span>Added to Cart: </span>'.$product["addedToCart"].
 	'</p><form method="post" action="./index.php?action=view_cart&departmentId='.$productDepartmentID.'&groupId='.$productGroupID.'&productgroupname='.$productDepartmentName.'"><input type="hidden" name="productName" value="'.$product["productName"].
@@ -74,7 +74,7 @@ function showProduct($product, $productDepartmentID){
 
 
 function showProductDetails($product, $productDepartmentID){
-    $productDetails = "<section class='productDetailsSection'><h2 class='productDetailsHeading'>".$product['productName']."</h2><article><div><img src=".$product['productImage']."></div><div><div class='productDetailsDescription'><p class='price'><span>Price: </span>".
+    $productDetails = "<section class='productDetailsSection'><h2 class='productDetailsHeading'>".$product['productName']."</h2><article class='productDetailsArticle'><div><img src=".$product['productImage']."></div><div><div class='productDetailsDescription'><p class='price'><span>Price: </span>".
                                 $product['productPrice']."</p><p><span>Description: </span>".$product['productDescription']."</p><p><span>Stock: </span>".$product['productStock'].
                                 "</p></div><form action='./index.php?action=showProductDetails&departmentId=$productDepartmentID' "
                                 . "method='post'><input type='hidden' name='productName' value='".$product['productName'].
