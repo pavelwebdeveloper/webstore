@@ -61,7 +61,7 @@ function showProductsInCart($product, $productDepartmentID = '', $productGroupID
 	
 function showProduct($product, $productDepartmentID){
     
-    $productDisplay = '<section><h2>'.$product["productName"].'</h2><article><div><img src='.$product["productImage"].'></div><div><div class="productDescription"><p class="price"><span>Price: </span>'.$product["productPrice"].
+    $productDisplay = '<section><h2>'.$product["productName"].'</h2><article><div><img src='.$product["productImage"].'></div><div><div class="productDescription"><p class="price"><span>Price: </span>'.$product["productPrice"].'<span class="currencySign"> $</span>'.
 	'</p><p><span>Description: </span>'.$product["productDescription"].'</p><p><span>Stock: </span>'.$product["productStock"].
 	'</p></div><form method="post" action="./index.php?action=showProductDetails&departmentId='.$productDepartmentID.'"><input type="hidden" name="productName" value="'.$product["productName"].
 	'"><input type="hidden" name="productImage" value="'.$product["productImage"].'"><input type="hidden" name="productPrice" value="'.$product["productPrice"].
@@ -78,7 +78,7 @@ function showProductDetails($product, $productDepartmentID){
                                 $product['productPrice']."</p><p><span>Description: </span>".$product['productDescription']."</p><p><span>Stock: </span>".$product['productStock'].
                                 "</p></div><form action='./index.php?action=showProductDetails&departmentId=$productDepartmentID' "
                                 . "method='post'><input type='hidden' name='productName' value='".$product['productName'].
-	"'><input type='hidden' name='productImage' value='".$product['productImage']."'><input type='hidden' name='productPrice' value='".$product['productPrice'].
+	"'><input type='hidden' name='productImage' value='".$product['productImage']."'><input type='hidden' name='productPrice' value='".$product['productPrice'].'<span class="currencySign"> $</span>'.
 	"'><input type='hidden' name='productDescription' value='".$product['productDescription']."'><input type='hidden' name='productStock' value='".$product['productStock'].
 	"'><input type='hidden' name='productID' value='".$product['productID']."'><input class='add-to-shopping-cart-button' type='submit' name='addToShoppingCart' value='Add to Shopping Cart'></form></div></article></section>";
     return $productDetails;
