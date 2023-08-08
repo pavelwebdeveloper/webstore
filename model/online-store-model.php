@@ -8,7 +8,7 @@ function getProductDepartments() {
  // Create a connection object from the acme connection function
  $db = onlineStoreConnect();
  // The SQL statement to be used with the database 
- $sql = 'SELECT * FROM productdepartment';
+ $sql = 'SELECT * FROM productdepartment_webstore';
  // The next line creates the prepared statement using the acme connection
  $stmt = $db->prepare($sql);
  // The next line runs the prepared statement 
@@ -28,9 +28,9 @@ function getProducts($groupId = 0) {
  $db = onlineStoreConnect();
  // The SQL statement to be used with the database 
  if($groupId == 0){
- $sql = 'SELECT * FROM product';
+ $sql = 'SELECT * FROM product_webstore';
  } else {
-     $sql = 'SELECT * FROM product WHERE productGroupID = :groupId';
+     $sql = 'SELECT * FROM product_webstore WHERE productGroupID = :groupId';
  }
  // The next line creates the prepared statement using the acme connection
  $stmt = $db->prepare($sql);
@@ -51,7 +51,7 @@ function getProducts($groupId = 0) {
 
 function findProducts($product) {
  $db = onlineStoreConnect();
- $stmt = $db->prepare("SELECT * FROM product WHERE productName LIKE CONCAT( '%', :product, '%')");
+ $stmt = $db->prepare("SELECT * FROM product_webstore WHERE productName LIKE CONCAT( '%', :product, '%')");
             $stmt->bindValue(':product', $product, PDO::PARAM_STR);
             $stmt->execute();
             $foundproducts = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -62,7 +62,7 @@ function findProducts($product) {
 
 function getProduct($productID) {
  $db = onlineStoreConnect();
- $stmt = $db->prepare("SELECT * FROM product WHERE productID = :productID");
+ $stmt = $db->prepare("SELECT * FROM product_webstore WHERE productID = :productID");
             $stmt->bindValue(':productID', $productID, PDO::PARAM_STR);
             $stmt->execute();
             $product = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -73,7 +73,7 @@ function getProduct($productID) {
 
 function getProductsGroups($productDepartmentID){
     $db = onlineStoreConnect();
- $sql = 'SELECT * FROM productgroup WHERE productDepartmentID = :productDepartmentID';
+ $sql = 'SELECT * FROM productgroup_webstore WHERE productDepartmentID = :productDepartmentID';
   $stmt = $db->prepare($sql);
   $stmt->bindValue(':productDepartmentID', $productDepartmentID, PDO::PARAM_INT);
   $stmt->execute();
@@ -91,7 +91,7 @@ function changeProductStock(){
 	
         $db = onlineStoreConnect();
 	// Update the product stock data when adding a product to the shopping cart
-        $updateProductStock = $db->prepare('UPDATE product SET productStock = :productstock WHERE productID = :productid;');
+        $updateProductStock = $db->prepare('UPDATE product_webstore SET productStock = :productstock WHERE productID = :productid;');
         $updateProductStock->bindValue(':productid', $productId, PDO::PARAM_INT);
         $updateProductStock->bindValue(':productstock', $productStock, PDO::PARAM_INT);
         $updateProductStock->execute();
@@ -100,7 +100,7 @@ function changeProductStock(){
 
 function addUser($userName, $userEmail, $hashedPassword){
         $db = onlineStoreConnect();
-        $stmt = $db->prepare('INSERT INTO storeuser (username, email, password, userlevel) VALUES (:username, :useremail, :userpassword, 1)'); 
+        $stmt = $db->prepare('INSERT INTO storeuser_webstore (username, email, password, userlevel) VALUES (:username, :useremail, :userpassword, 1)'); 
         $stmt->bindValue(':username', $userName, PDO::PARAM_STR);
         $stmt->bindValue(':useremail', $userEmail, PDO::PARAM_STR);
         $stmt->bindValue(':userpassword', $hashedPassword, PDO::PARAM_STR);
@@ -112,7 +112,7 @@ function addUser($userName, $userEmail, $hashedPassword){
 function loginUser($userEmail){
         $db = onlineStoreConnect();
         // Query the client data based on the email address
-        $getUserData = $db->prepare('SELECT id, username, email, password, userlevel FROM storeuser WHERE email=:userEmail');
+        $getUserData = $db->prepare('SELECT id, username, email, password, userlevel FROM storeuser_webstore WHERE email=:userEmail');
         $getUserData->bindValue(':userEmail', $userEmail, PDO::PARAM_STR);
         $getUserData->execute();
         $userData = $getUserData->fetch(PDO::FETCH_ASSOC);

@@ -20,7 +20,7 @@ header {
 
 @media only screen and (max-width: 64em) {
         header {
-            margin-top: -11em;
+            margin-top: -7em;
     }
 }
 
@@ -108,7 +108,13 @@ form input{
 
 #products #flexlayout div#flexlayoutleft {
 	margin: 10px;
-        width: 550px;
+        max-width: 100%;
+}
+
+@media only screen and (max-width: 64em) {
+        #products #flexlayout div#flexlayoutleft {
+            margin-top: 6em;
+    }
 }
 
 
@@ -242,7 +248,7 @@ main {
 }
 
 main form {
-	margin: 20px 25px;
+        margin-top: 6em;
         height: 20%;
         font-size: 2em;
 }
@@ -450,11 +456,6 @@ section {
 	flex-direction: row;
 }
 
-/*section article {
-	flex-direction: row;
-	justify-content: space-between;
-}*/
-
 .productDetailsSection{
     width: 70em;
 }
@@ -488,4 +489,13 @@ main div.bottomNavigationLinks {
 
 }
 
+/************************************************************************************/
+/****************************LAYOUT FOR LARGE SCREENS*******************************/
+/************************************************************************************/
 
+#centerLoginForm{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6em;
+}
