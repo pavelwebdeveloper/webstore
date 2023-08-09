@@ -31,6 +31,7 @@
 	echo '<div>
 </div><div id="logInOrSignUp">
 <a href="./index.php?action=showLoginPage" title="a link to log in">Log In</a>
+
 </div>';
 } else {
 	echo '<div><p>You are logged in as ' . $_SESSION['userData']['username'] . '</p>

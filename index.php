@@ -498,7 +498,9 @@ if (!isset($_SESSION['shoppingCart'])) {
         break;
  
         case 'showSignUpPage':
-         
+           
+           unset($_SESSION['message']);
+            
            $pageTitle = 'SignUp Page';
            $page = 'signup_page';
            include 'views/index.php';   

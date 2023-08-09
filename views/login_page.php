@@ -2,7 +2,7 @@
 
  
  
- <div id="centerLoginForm">
+ <div class="centerForm">
  <?php
    if (isset($_SESSION['message'])) {
     echo $_SESSION['message'];

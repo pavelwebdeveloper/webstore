@@ -61,7 +61,6 @@ header div a {
 }
 
 nav {
-	height: 50px;
 	padding-top: 10px;
 }
 
@@ -69,7 +68,7 @@ nav a {
 	text-decoration: none;
 	color: white;
 	height: 50px;
-	font-size: 35px;
+	font-size: 25px;
 	margin-left: 10px;
 	cursor: pointer;
 }
@@ -207,7 +206,7 @@ header div a {
 	margin-top: 20px;
 	color: white;
 	height: 50px;
-	font-size: 35px;
+	font-size: 25px;
 	cursor: pointer;
 }
 
@@ -248,7 +247,6 @@ main {
 }
 
 main form {
-        margin-top: 6em;
         height: 20%;
         font-size: 2em;
 }
@@ -289,30 +287,38 @@ main div.bottomNavigationLinks {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-        margin-bottom: 0;
+        margin: 2em;
 }
 
 span.passworddescription {
 	font-size: 22px;
 }
 
-footer {
-background-color: #000066;
-height: 100px;
-vertical-align: center;
-position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
 
+
+    footer {
+    background-color: #000066;
+    position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer p {
+            font-size: 25px;
+            color: white;
+            text-align: center;
+            padding-top: 10px;
+    }
+
+
+@media only screen and (max-width: 37.5em) {
 footer p {
-	font-size: 25px;
-	color: white;
-	text-align: center;
-	padding-top: 10px;
+            font-size: 15px;
+            padding-bottom: 0.5em;
+    }
 }
-
+    
 p.messagesuccess {
 	color: green;
 }
@@ -370,6 +376,14 @@ div#customerInformation {
 
 span{
     font-weight: bold;
+}
+
+.lastParagraph{
+    margin-bottom: 1em;
+}
+
+.descriptionItem{
+    font-size: 1.5em;
 }
 
 
@@ -490,12 +504,13 @@ main div.bottomNavigationLinks {
 }
 
 /************************************************************************************/
-/****************************LAYOUT FOR LARGE SCREENS*******************************/
+/****************************LAYOUT FOR signup and login pages*******************************/
 /************************************************************************************/
 
-#centerLoginForm{
+.centerForm{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 6em;
+  padding-top: 9em;
 }
